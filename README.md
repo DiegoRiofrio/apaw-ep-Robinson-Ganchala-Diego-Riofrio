@@ -6,7 +6,8 @@
 [![Build Status](https://travis-ci.org/DiegoRiofrio/apaw-ep-Robinson-Ganchala-Diego-Riofrio.svg?branch=develop)](https://travis-ci.org/DiegoRiofrio/apaw-ep-Robinson-Ganchala-Diego-Riofrio)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-Robinson-Ganchala-Diego-Riofrio&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-Robinson-Ganchala-Diego-Riofrio)
 [![BCH compliance](https://bettercodehub.com/edge/badge/DiegoRiofrio/apaw-ep-Robinson-Ganchala-Diego-Riofrio?branch=develop)](https://bettercodehub.com/)
-[![Heroku broken](https://apaw-ep-themes.herokuapp.com/system/version-badge)](https://apaw-ep-themes.herokuapp.com/swagger-ui.html)
+[![Heroku broken](https://apaw-ep-robinson-diego.herokuapp.com/system/version-badge)](https://apaw-ep-robinson-diego.herokuapp.com/swagger-ui.html)
+
 
 ### Tecnologías necesarias
 * Java
