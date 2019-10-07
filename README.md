@@ -4,7 +4,7 @@
 
 ### Estado del código
 [![Build Status](https://travis-ci.org/DiegoRiofrio/apaw-ep-Robinson-Ganchala-Diego-Riofrio.svg?branch=develop)](https://travis-ci.org/DiegoRiofrio/apaw-ep-Robinson-Ganchala-Diego-Riofrio)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-themes&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-themes)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-Robinson-Ganchala-Diego-Riofrio&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-Robinson-Ganchala-Diego-Riofrio)
 [![BCH compliance](https://bettercodehub.com/edge/badge/miw-upm/apaw-ep-themes?branch=develop)](https://bettercodehub.com/)
 [![Heroku broken](https://apaw-ep-themes.herokuapp.com/system/version-badge)](https://apaw-ep-themes.herokuapp.com/swagger-ui.html)
 
