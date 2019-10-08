@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_themes.exceptions;
+package es.upm.miw.apaw_contest.exceptions;
 
 public class BadRequestException extends RuntimeException {
     private static final String DESCRIPTION = "Bad Request Exception (400)";
