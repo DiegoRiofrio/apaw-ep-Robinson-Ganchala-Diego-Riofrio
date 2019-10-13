@@ -10,6 +10,10 @@ public class SponsorCreationDto {
 
     private String sponsorType;
 
+    public SponsorCreationDto() {
+        // For framework
+    }
+
     public SponsorCreationDto(String name, double donatedAmount, String sponsorType) {
         this.name = name;
         this.donatedAmount = donatedAmount;
@@ -37,7 +41,7 @@ public class SponsorCreationDto {
 
     @Override
     public String toString() {
-        return "UserCreationDto{" +
+        return "SponsorCreationDto{" +
                 "name='" + name + '\'' +
                 ", donatedAmount='" + donatedAmount + '\'' +
                 ", sponsorType='" + sponsorType + '\'' +

@@ -1,7 +1,6 @@
 package es.upm.miw.apaw_contest.api_controllers;
 
 import es.upm.miw.apaw_contest.ApiTestConfig;
-import es.upm.miw.apaw_contest.documents.Sponsor;
 import es.upm.miw.apaw_contest.dtos.SponsorBasicDto;
 import es.upm.miw.apaw_contest.dtos.SponsorCreationDto;
 import org.junit.jupiter.api.Test;
