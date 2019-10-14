@@ -2,6 +2,8 @@ package es.upm.miw.apaw_contest.dtos;
 
 import es.upm.miw.apaw_contest.exceptions.BadRequestException;
 
+import javax.validation.constraints.NotNull;
+
 public class GuitarPlayerCreationDto {
 
     private String name;
@@ -39,6 +41,7 @@ public class GuitarPlayerCreationDto {
         this.surname = surname;
     }
 
+    @NotNull
     public Boolean getHasOwnerGuitar() {
         return hasOwnerGuitar;
     }
@@ -56,8 +59,8 @@ public class GuitarPlayerCreationDto {
     }
 
     public void validate() {
-        if (this.name == null || this.name.isEmpty() || this.surname == null || this.surname.isEmpty() || this.phone == null) {
-            throw new BadRequestException("Incomplete GuitarPlayerCreationDto");
+        if (this.name == null || this.name.isEmpty() || this.surname == null || this.surname.isEmpty() || this.hasOwnerGuitar == null || this.phone == null) {
+            throw new BadRequestException("Incomplete GuitarPlayerCreationDto, haOwnerGuitar must be true or false");
         }
     }
 

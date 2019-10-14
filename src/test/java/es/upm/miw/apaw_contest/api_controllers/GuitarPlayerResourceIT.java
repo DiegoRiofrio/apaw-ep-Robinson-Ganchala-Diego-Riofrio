@@ -36,7 +36,7 @@ public class GuitarPlayerResourceIT {
 
     @Test
     void testCreateGuitarPlayerExeption() {
-        GuitarPlayerCreationDto guitarPlayerCreationDto = new GuitarPlayerCreationDto("diego-2","null",true,null);
+        GuitarPlayerCreationDto guitarPlayerCreationDto = new GuitarPlayerCreationDto("diego-2","Vasconez",null,666555666);
         this.webTestClient
                 .post().uri(GuitarPlayerResource.GUITARPLAYERS)
                 .body(BodyInserters.fromObject(guitarPlayerCreationDto))
