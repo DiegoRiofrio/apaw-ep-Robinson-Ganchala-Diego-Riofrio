@@ -16,7 +16,7 @@ class GuitarPlayerDaoIT {
 
     @Test
     void testCreate() {
-        GuitarPlayer guitarPlayer = new GuitarPlayer("diego", "riofrio", null, 655655655);
+        GuitarPlayer guitarPlayer = new GuitarPlayer("diego", "riofrio", false, 655655655);
         this.guitarPlayerDao.save(guitarPlayer);
         GuitarPlayer databaseGuitarPlayer = this.guitarPlayerDao.findById(guitarPlayer.getId()).orElseGet(Assertions::fail);
         assertEquals("diego", databaseGuitarPlayer.getName());
