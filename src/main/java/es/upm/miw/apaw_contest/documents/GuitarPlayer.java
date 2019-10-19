@@ -12,14 +12,14 @@ public class GuitarPlayer {
 
     private String surname;
 
-    private Boolean hasOwnerGuitar;
+    private Boolean hasOwnGuitar;
 
     private Integer phone;
 
-    public GuitarPlayer(String name, String surname, Boolean hasOwnerGuitar, Integer phone) {
+    public GuitarPlayer(String name, String surname, Boolean hasOwnGuitar, Integer phone) {
         this.name = name;
         this.surname = surname;
-        this.hasOwnerGuitar = hasOwnerGuitar;
+        this.hasOwnGuitar = hasOwnGuitar;
         this.phone = phone;
     }
 
@@ -41,7 +41,7 @@ public class GuitarPlayer {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", hasOwnerGuitar=" + hasOwnerGuitar +
+                ", hasOwnGuitar=" + hasOwnGuitar +
                 ", phone=" + phone +
                 '}';
     }

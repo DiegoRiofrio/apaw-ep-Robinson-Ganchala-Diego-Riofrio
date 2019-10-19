@@ -10,7 +10,7 @@ public class GuitarPlayerCreationDto {
 
     private String surname;
 
-    private Boolean hasOwnerGuitar;
+    private Boolean hasOwnGuitar;
 
     private Integer phone;
 
@@ -18,10 +18,10 @@ public class GuitarPlayerCreationDto {
         // Empty for framework
     }
 
-    public GuitarPlayerCreationDto(String name, String surname, Boolean hasOwnerGuitar, Integer phone) {
+    public GuitarPlayerCreationDto(String name, String surname, Boolean hasOwnGuitar, Integer phone) {
         this.name = name;
         this.surname = surname;
-        this.hasOwnerGuitar = hasOwnerGuitar;
+        this.hasOwnGuitar = hasOwnGuitar;
         this.phone = phone;
     }
 
@@ -37,30 +37,19 @@ public class GuitarPlayerCreationDto {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     @NotNull
-    public Boolean getHasOwnerGuitar() {
-        return hasOwnerGuitar;
-    }
+    public Boolean getHasOwnGuitar() {
 
-    public void setHasOwnerGuitar(Boolean hasOwnerGuitar) {
-        this.hasOwnerGuitar = hasOwnerGuitar;
+        return hasOwnGuitar;
     }
 
     public Integer getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
-        this.phone = phone;
-    }
-
     public void validate() {
-        if (this.name == null || this.name.isEmpty() || this.surname == null || this.surname.isEmpty() || this.hasOwnerGuitar == null || this.phone == null) {
-            throw new BadRequestException("Incomplete GuitarPlayerCreationDto, haOwnerGuitar must be true or false");
+        if (this.name == null || this.name.isEmpty() || this.surname == null || this.surname.isEmpty() || this.hasOwnGuitar == null || this.phone == null) {
+            throw new BadRequestException("Incomplete GuitarPlayerCreationDto");
         }
     }
 
@@ -69,7 +58,7 @@ public class GuitarPlayerCreationDto {
         return "GuitarPlayerCreationDto{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", hasOwnerGuitar=" + hasOwnerGuitar +
+                ", hasOwnGuitar=" + hasOwnGuitar +
                 ", phone=" + phone +
                 '}';
     }
