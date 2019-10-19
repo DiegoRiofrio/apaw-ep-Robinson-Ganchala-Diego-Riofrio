@@ -23,13 +23,8 @@ public class GuitarPlayer {
         this.phone = phone;
     }
 
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -38,30 +33,6 @@ public class GuitarPlayer {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Boolean getHasOwnerGuitar() {
-        return hasOwnerGuitar;
-    }
-
-    public void setHasOwnerGuitar(Boolean hasOwnerGuitar) {
-        this.hasOwnerGuitar = hasOwnerGuitar;
-    }
-
-    public Integer getPhone() {
-        return phone;
-    }
-
-    public void setPhone(Integer phone) {
-        this.phone = phone;
     }
 
     @Override
