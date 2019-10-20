@@ -12,6 +12,7 @@ import java.util.List;
 public class CommentResource {
 
     public static final String COMMENTS = "/comments";
+    static final String ID_ID = "/{id}";
 
     private CommentBusinessController commentBusinessController;
 
@@ -29,5 +30,15 @@ public class CommentResource {
     @GetMapping
     public List<CommentDto> readAll() {
         return this.commentBusinessController.readAll();
+    }
+
+    @GetMapping(value = ID_ID)
+    public CommentDto get(@PathVariable String id) {
+        return this.commentBusinessController.getCommentById(id);
+    }
+
+    @DeleteMapping(value = ID_ID)
+    public void delete(@PathVariable String id) {
+        this.commentBusinessController.delete(id);
     }
 }
