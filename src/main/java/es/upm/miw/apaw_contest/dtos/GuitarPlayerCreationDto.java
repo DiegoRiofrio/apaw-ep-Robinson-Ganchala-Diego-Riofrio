@@ -1,10 +1,13 @@
 package es.upm.miw.apaw_contest.dtos;
 
+import es.upm.miw.apaw_contest.documents.GuitarPlayer;
 import es.upm.miw.apaw_contest.exceptions.BadRequestException;
 
 import javax.validation.constraints.NotNull;
 
 public class GuitarPlayerCreationDto {
+
+    private String id;
 
     private String name;
 
@@ -23,6 +26,18 @@ public class GuitarPlayerCreationDto {
         this.surname = surname;
         this.hasOwnGuitar = hasOwnGuitar;
         this.phone = phone;
+    }
+
+    public GuitarPlayerCreationDto(GuitarPlayer guitarPlayer) {
+        this.id = guitarPlayer.getId();
+        this.name = guitarPlayer.getName();
+        this.surname = guitarPlayer.getSurname();
+        this.hasOwnGuitar = guitarPlayer.getHasOwnGuitar();
+        this.phone = guitarPlayer.getPhone();
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {

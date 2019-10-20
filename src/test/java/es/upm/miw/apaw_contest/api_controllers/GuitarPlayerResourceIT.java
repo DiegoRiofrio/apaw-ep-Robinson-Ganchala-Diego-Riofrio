@@ -17,6 +17,39 @@ public class GuitarPlayerResourceIT {
     @Autowired
     private WebTestClient webTestClient;
 
+
+    @Test
+    void testGetGuitarPlayer() {
+        GuitarPlayerBasicDto fakeGuitarPlayerBasicDto = createGuitarPlayer("Robin");
+        String guitarPlayerId = fakeGuitarPlayerBasicDto.getId();
+
+        GuitarPlayerCreationDto guitarPlayer = this.webTestClient
+                .get().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID, guitarPlayerId)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(GuitarPlayerCreationDto.class)
+                .returnResult().getResponseBody();
+
+        assertEquals(guitarPlayerId, guitarPlayer.getId());
+    }
+
+    @Test
+    void testGetGuitarPlayerBadRequestException() {
+        this.webTestClient
+                .get().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID, "")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testGuitarPlayerNotFoundException() {
+        String guitarPlayerId = "none";
+        this.webTestClient
+                .get().uri(GuitarPlayerResource.GUITARPLAYERS + "/bad-uri" + GuitarPlayerResource.ID_ID, guitarPlayerId)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
     @Test
     void testCreate() {
         GuitarPlayerBasicDto guitarPlayerBasicDto = createGuitarPlayer("diego");
@@ -35,7 +68,7 @@ public class GuitarPlayerResourceIT {
     }
 
     @Test
-    void testCreateGuitarPlayerExeption() {
+    void testCreateGuitarPlayerException() {
         GuitarPlayerCreationDto guitarPlayerCreationDto = new GuitarPlayerCreationDto("diego-2", "Vasconez", null, 666555666);
         this.webTestClient
                 .post().uri(GuitarPlayerResource.GUITARPLAYERS)

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(GuitarPlayerResource.GUITARPLAYERS)
 public class GuitarPlayerResource {
     public static final String GUITARPLAYERS = "/guitar-players";
+    static final String ID_ID = "/{id}";
 
     private GuitarPlayerBusinessController guitarPlayerBusinessController;
 
@@ -23,4 +24,10 @@ public class GuitarPlayerResource {
         guitarPlayerCreationDto.validate();
         return this.guitarPlayerBusinessController.create(guitarPlayerCreationDto);
     }
+
+    @GetMapping(value = ID_ID)
+    public GuitarPlayerCreationDto get(@PathVariable String id) {
+        return this.guitarPlayerBusinessController.getGuitarPlayerById(id);
+    }
+
 }
