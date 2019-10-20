@@ -4,6 +4,7 @@ import es.upm.miw.apaw_contest.daos.GuitarPlayerDao;
 import es.upm.miw.apaw_contest.documents.GuitarPlayer;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerCreationDto;
+import es.upm.miw.apaw_contest.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -21,5 +22,11 @@ public class GuitarPlayerBusinessController {
         GuitarPlayer guitarPlayer = new GuitarPlayer(guitarPlayerCreationDto.getName(), guitarPlayerCreationDto.getSurname(), guitarPlayerCreationDto.getHasOwnGuitar(), guitarPlayerCreationDto.getPhone());
         this.guitarPlayerDao.save(guitarPlayer);
         return new GuitarPlayerBasicDto(guitarPlayer);
+    }
+
+    public GuitarPlayerCreationDto getGuitarPlayerById(String id) {
+        return new GuitarPlayerCreationDto(
+                this.guitarPlayerDao.findById(id).orElseThrow(() -> new NotFoundException("GuitarPlayer id not found: " + id))
+        );
     }
 }
