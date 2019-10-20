@@ -19,15 +19,19 @@ class SponsorResourceIT {
 
     @Test
     void testCreate() {
-        SponsorCreationDto sponsorCreationDto = new SponsorCreationDto("iberia", 30.75, "small");
-        SponsorBasicDto sponsorBasicDto = this.webTestClient
+        SponsorBasicDto sponsorBasicDto = createSponsor("iberia", 30.75, "small");
+        assertEquals("iberia", sponsorBasicDto.getName());
+    }
+
+    SponsorBasicDto createSponsor(String name, double donatedAmount, String sponsorType) {
+        SponsorCreationDto sponsorCreationDto = new SponsorCreationDto(name, donatedAmount, sponsorType);
+        return this.webTestClient
                 .post().uri(SponsorResource.SPONSORS)
                 .body(BodyInserters.fromObject(sponsorCreationDto))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(SponsorBasicDto.class)
                 .returnResult().getResponseBody();
-        assertEquals("iberia", sponsorBasicDto.getName());
     }
 
     @Test
@@ -39,5 +43,29 @@ class SponsorResourceIT {
                 .body(BodyInserters.fromObject(sponsorCreationDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    SponsorCreationDto getSponsorWithType(String id) {
+        return this.webTestClient
+                .get().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID + SponsorResource.TYPE, id)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SponsorCreationDto.class)
+                .returnResult().getResponseBody();
+    }
+
+    @Test
+    void testPutSponsorType() {
+        SponsorBasicDto sponsorBasicDto = createSponsor("SONY", 10000.750, "medium");
+        SponsorCreationDto sponsorToSet = new SponsorCreationDto();
+        sponsorToSet.setSponsorType("small");
+        this.webTestClient
+                .put().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID + SponsorResource.TYPE, sponsorBasicDto.getId())
+                .body(BodyInserters.fromObject(sponsorToSet))
+                .exchange()
+                .expectStatus().isOk();
+        sponsorToSet = getSponsorWithType(sponsorBasicDto.getId());
+        assertEquals(sponsorBasicDto.getId(), sponsorToSet.getId());
+        assertEquals("small", sponsorToSet.getSponsorType());
     }
 }
