@@ -34,6 +34,44 @@ public class CommentResourceIT {
         assertEquals(list.get(1).getDescription(), "Mal hecho!");
     }
 
+    @Test
+    void testCommentsNotFoundException() {
+        this.webTestClient
+                .get().uri(CommentResource.COMMENTS + " ")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testDeleteComment() {
+        CommentDto commentDto = createComment(true, "Bien hecho!");
+        this.webTestClient
+                .delete().uri(CommentResource.COMMENTS + CommentResource.ID_ID, commentDto.getId())
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK);
+
+        this.webTestClient
+                .get().uri(CommentResource.COMMENTS + CommentResource.ID_ID, commentDto.getId())
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testDeleteCommentNotFound() {
+        this.webTestClient
+                .delete().uri(CommentResource.COMMENTS + "/targetId" + "MongoID")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testDeleteCommentBadRequest() {
+        this.webTestClient
+                .delete().uri(CommentResource.COMMENTS + CommentResource.ID_ID, "")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
     CommentDto createComment(Boolean positive, String description) {
         CommentDto commentDto = new CommentDto(positive, description);
         return this.webTestClient
@@ -43,13 +81,5 @@ public class CommentResourceIT {
                 .expectStatus().isOk()
                 .expectBody(CommentDto.class)
                 .returnResult().getResponseBody();
-    }
-
-    @Test
-    void testCommentsNotFoundException() {
-        this.webTestClient
-                .get().uri(CommentResource.COMMENTS + "/all")
-                .exchange()
-                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
