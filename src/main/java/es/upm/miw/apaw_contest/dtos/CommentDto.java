@@ -13,6 +13,11 @@ public class CommentDto {
 
     private String description;
 
+    public CommentDto(Boolean positive, String description) {
+        this.positive = positive;
+        this.description = description;
+    }
+
     public CommentDto(Comment comment) {
         this.id = comment.getId();
         this.positive = comment.getPositive();
