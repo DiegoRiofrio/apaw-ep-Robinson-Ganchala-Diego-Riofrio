@@ -4,6 +4,7 @@ import es.upm.miw.apaw_contest.ApiTestConfig;
 import es.upm.miw.apaw_contest.dtos.CommentDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
@@ -42,5 +43,13 @@ public class CommentResourceIT {
                 .expectStatus().isOk()
                 .expectBody(CommentDto.class)
                 .returnResult().getResponseBody();
+    }
+
+    @Test
+    void testCommentsNotFoundException() {
+        this.webTestClient
+                .get().uri(CommentResource.COMMENTS + "/all")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
     }
 }
