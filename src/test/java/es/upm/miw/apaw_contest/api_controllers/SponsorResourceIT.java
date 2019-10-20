@@ -68,4 +68,14 @@ class SponsorResourceIT {
         assertEquals(sponsorBasicDto.getId(), sponsorToSet.getId());
         assertEquals("small", sponsorToSet.getSponsorType());
     }
+
+    @Test
+    void testPutSponsorTypeNotFound() {
+        this.webTestClient
+                .put().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID + SponsorResource.TYPE, "none")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+
 }
