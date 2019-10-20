@@ -54,7 +54,6 @@ public class GuitarPlayerCreationDto {
 
     @NotNull
     public Boolean getHasOwnGuitar() {
-
         return hasOwnGuitar;
     }
 
