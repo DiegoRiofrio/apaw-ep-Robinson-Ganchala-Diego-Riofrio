@@ -4,8 +4,10 @@ package es.upm.miw.apaw_contest.api_controllers;
 import es.upm.miw.apaw_contest.ApiTestConfig;
 import es.upm.miw.apaw_contest.dtos.GuitarContestBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarContestCreationDto;
+import es.upm.miw.apaw_contest.dtos.GuitarPlayerCreationDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
@@ -34,5 +36,15 @@ public class GuitarContestResourceIT {
                 .expectStatus().isOk()
                 .expectBody(GuitarContestBasicDto.class)
                 .returnResult().getResponseBody();
+    }
+
+    @Test
+    void testCreateGuitarContestExeption() {
+        GuitarContestCreationDto guitarContestCreationDto = new GuitarContestCreationDto(LocalDateTime.of(2030,2,28,22,30), "Branes2", "");
+        this.webTestClient
+                .post().uri(GuitarContestResource.GUITARCONTEST)
+                .body(BodyInserters.fromObject(guitarContestCreationDto))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 }
