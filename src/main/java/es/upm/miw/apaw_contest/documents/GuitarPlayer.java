@@ -31,6 +31,18 @@ public class GuitarPlayer {
         return name;
     }
 
+    public String getSurname() {
+        return surname;
+    }
+
+    public Boolean getHasOwnGuitar() {
+        return hasOwnGuitar;
+    }
+
+    public Integer getPhone() {
+        return phone;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
