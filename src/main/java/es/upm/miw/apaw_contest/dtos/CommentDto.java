@@ -13,6 +13,10 @@ public class CommentDto {
 
     private String description;
 
+    public CommentDto() {
+        //For Framework
+    }
+
     public CommentDto(Boolean positive, String description) {
         this.positive = positive;
         this.description = description;
@@ -22,10 +26,6 @@ public class CommentDto {
         this.id = comment.getId();
         this.positive = comment.getPositive();
         this.description = comment.getDescription();
-    }
-
-    public CommentDto() {
-        //For Framework
     }
 
     public String getId() {
@@ -42,16 +42,16 @@ public class CommentDto {
     }
 
     public void validate() {
-        if (this.positive == null || this.description.isEmpty() || this.description == null) {
+        if (this.positive == null || this.description.isEmpty()) {
             throw new BadRequestException("Incomplete CommentDto");
         }
     }
 
     @Override
     public String toString() {
-        return "CommentBasicDto{" +
+        return "CommentDto{" +
                 "id='" + id + '\'' +
-                ", positive='" + positive + '\'' +
+                ", positive=" + positive +
                 ", description='" + description + '\'' +
                 '}';
     }
