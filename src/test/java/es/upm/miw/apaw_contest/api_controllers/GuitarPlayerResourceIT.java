@@ -74,6 +74,38 @@ public class GuitarPlayerResourceIT {
                 .body(BodyInserters.fromObject(guitarPlayerCreationDto))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
 
+    GuitarPlayerCreationDto getGuitarPlayerWithSurname(String id) {
+        return this.webTestClient
+                .get().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID + GuitarPlayerResource.SURNAME, id)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(GuitarPlayerCreationDto.class)
+                .returnResult().getResponseBody();
+    }
+
+
+    @Test
+    void testPutGuitarPlayerSurname() {
+        GuitarPlayerBasicDto guitarPlayerBasicDto = createGuitarPlayer("vinicio");
+        GuitarPlayerCreationDto guitarPlayerToSet = new GuitarPlayerCreationDto();
+        guitarPlayerToSet.setSurname("Vasconez");
+        this.webTestClient
+                .put().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID + GuitarPlayerResource.SURNAME, guitarPlayerBasicDto.getId())
+                .body(BodyInserters.fromObject(guitarPlayerToSet))
+                .exchange()
+                .expectStatus().isOk();
+        guitarPlayerToSet = getGuitarPlayerWithSurname(guitarPlayerBasicDto.getId());
+        assertEquals(guitarPlayerBasicDto.getId(), guitarPlayerToSet.getId());
+        assertEquals("Vasconez", guitarPlayerToSet.getSurname());
+    }
+
+    @Test
+    void testPutGuitarPlayerSurnameNotFound() {
+        this.webTestClient
+                .put().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID + GuitarPlayerResource.SURNAME, "none")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 }
