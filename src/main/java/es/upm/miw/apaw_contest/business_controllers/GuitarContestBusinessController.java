@@ -13,9 +13,11 @@ public class GuitarContestBusinessController {
     private GuitarContestDao guitarContestDao;
 
     @Autowired
-    public GuitarContestBusinessController(GuitarContestDao guitarContestDao) {this.guitarContestDao = guitarContestDao;}
+    public GuitarContestBusinessController(GuitarContestDao guitarContestDao) {
+        this.guitarContestDao = guitarContestDao;
+    }
 
-    public GuitarContestBasicDto create (GuitarContestCreationDto guitarContestCreationDto) {
+    public GuitarContestBasicDto create(GuitarContestCreationDto guitarContestCreationDto) {
         GuitarContest guitarContest = new GuitarContest(guitarContestCreationDto.getDate(), guitarContestCreationDto.getAddress(), guitarContestCreationDto.getCountry());
         this.guitarContestDao.save(guitarContest);
         return new GuitarContestBasicDto(guitarContest);

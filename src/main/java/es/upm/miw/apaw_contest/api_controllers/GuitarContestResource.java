@@ -22,7 +22,7 @@ public class GuitarContestResource {
     }
 
     @PostMapping
-    public GuitarContestBasicDto create(@RequestBody GuitarContestCreationDto guitarContestCreationDto){
+    public GuitarContestBasicDto create(@RequestBody GuitarContestCreationDto guitarContestCreationDto) {
         guitarContestCreationDto.validate();
         return this.guitarContestBusinessController.create(guitarContestCreationDto);
     }

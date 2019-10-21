@@ -4,7 +4,6 @@ package es.upm.miw.apaw_contest.api_controllers;
 import es.upm.miw.apaw_contest.ApiTestConfig;
 import es.upm.miw.apaw_contest.dtos.GuitarContestBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarContestCreationDto;
-import es.upm.miw.apaw_contest.dtos.GuitarPlayerCreationDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,7 @@ public class GuitarContestResourceIT {
 
     @Test
     void testCreate() {
-        GuitarContestBasicDto guitarContestBasicDto = createGuitarContest(LocalDateTime.of(2020,2,28,22,30), "AlexanderPlatz","Alemania");
+        GuitarContestBasicDto guitarContestBasicDto = createGuitarContest(LocalDateTime.of(2020, 2, 28, 22, 30), "AlexanderPlatz", "Alemania");
         assertEquals("AlexanderPlatz", guitarContestBasicDto.getAddress());
     }
 
@@ -40,7 +39,7 @@ public class GuitarContestResourceIT {
 
     @Test
     void testCreateGuitarContestExeption() {
-        GuitarContestCreationDto guitarContestCreationDto = new GuitarContestCreationDto(LocalDateTime.of(2030,2,28,22,30), "Branes2", "");
+        GuitarContestCreationDto guitarContestCreationDto = new GuitarContestCreationDto(LocalDateTime.of(2030, 2, 28, 22, 30), "Branes2", "");
         this.webTestClient
                 .post().uri(GuitarContestResource.GUITARCONTEST)
                 .body(BodyInserters.fromObject(guitarContestCreationDto))

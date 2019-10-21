@@ -18,8 +18,8 @@ public class GuitarContestDaoIT {
     private GuitarContestDao guitarContestDao;
 
     @Test
-    void testCreate(){
-        GuitarContest guitarContest = new GuitarContest(LocalDateTime.of(2020,2,28,20,30), "puerta del sol, Madrid", "España" );
+    void testCreate() {
+        GuitarContest guitarContest = new GuitarContest(LocalDateTime.of(2020, 2, 28, 20, 30), "puerta del sol, Madrid", "España");
         this.guitarContestDao.save(guitarContest);
         GuitarContest databaseGuitarContest = this.guitarContestDao.findById(guitarContest.getId()).orElseGet(Assertions::fail);
         assertEquals("España", databaseGuitarContest.getCountry());
