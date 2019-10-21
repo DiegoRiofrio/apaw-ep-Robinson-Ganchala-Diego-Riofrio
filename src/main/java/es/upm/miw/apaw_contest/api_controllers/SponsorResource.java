@@ -27,6 +27,11 @@ public class SponsorResource {
         return this.sponsorBusinessController.create(sponsorCreationDto);
     }
 
+    @GetMapping(value = ID_ID)
+    public SponsorCreationDto get(@PathVariable String id){
+        return this.sponsorBusinessController.getSponsorById(id);
+    }
+
     @GetMapping(value = ID_ID + TYPE)
     public SponsorCreationDto readType(@PathVariable String id) {
         return this.sponsorBusinessController.readType(id);

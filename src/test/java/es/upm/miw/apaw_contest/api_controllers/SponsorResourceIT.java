@@ -18,6 +18,28 @@ class SponsorResourceIT {
     private WebTestClient webTestClient;
 
     @Test
+    void testGetSponsor(){
+        SponsorBasicDto sponsorBasicDto = createSponsor("bankia",3000.00,"high");
+        String sponsorId = sponsorBasicDto.getId();
+
+        SponsorCreationDto sponror = this.webTestClient
+                .get().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID, sponsorId)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SponsorCreationDto.class)
+                .returnResult().getResponseBody();
+        assertEquals(sponsorId,sponror.getId());
+    }
+
+    @Test
+    void testGetSponsorBadRequestExeption(){
+        this.webTestClient
+                .get().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID,"")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
     void testCreate() {
         SponsorBasicDto sponsorBasicDto = createSponsor("iberia", 30.75, "small");
         assertEquals("iberia", sponsorBasicDto.getName());
