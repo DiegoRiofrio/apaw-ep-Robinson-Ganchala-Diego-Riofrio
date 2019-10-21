@@ -29,4 +29,18 @@ public class GuitarPlayerBusinessController {
                 this.guitarPlayerDao.findById(id).orElseThrow(() -> new NotFoundException("GuitarPlayer id not found: " + id))
         );
     }
+
+    private GuitarPlayer findGuitarPlayerById(String id) {
+        return this.guitarPlayerDao.findById(id).orElseThrow(() -> new NotFoundException("GuitarPlayer id not found: " + id));
+    }
+
+    public GuitarPlayerCreationDto readSurname(String id){
+        return new GuitarPlayerCreationDto(this.findGuitarPlayerById(id));
+    }
+
+    public void updateSurname(String id, String surname){
+        GuitarPlayer guitarPlayer = this.findGuitarPlayerById(id);
+        guitarPlayer.setSurname(surname);
+        this.guitarPlayerDao.save(guitarPlayer);
+    }
 }

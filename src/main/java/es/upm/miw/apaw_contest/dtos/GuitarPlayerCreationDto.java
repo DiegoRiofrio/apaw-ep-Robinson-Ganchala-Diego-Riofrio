@@ -52,6 +52,10 @@ public class GuitarPlayerCreationDto {
         return surname;
     }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     @NotNull
     public Boolean getHasOwnGuitar() {
         return hasOwnGuitar;
@@ -64,6 +68,12 @@ public class GuitarPlayerCreationDto {
     public void validate() {
         if (this.name == null || this.name.isEmpty() || this.surname == null || this.surname.isEmpty() || this.hasOwnGuitar == null || this.phone == null) {
             throw new BadRequestException("Incomplete GuitarPlayerCreationDto");
+        }
+    }
+
+    public void valdateSurname(){
+        if (this.surname == null || this.surname.isEmpty()){
+            throw new BadRequestException("Incomplete, lost Surname");
         }
     }
 
