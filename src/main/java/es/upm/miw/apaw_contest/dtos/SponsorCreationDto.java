@@ -1,8 +1,11 @@
 package es.upm.miw.apaw_contest.dtos;
 
+import es.upm.miw.apaw_contest.documents.Sponsor;
 import es.upm.miw.apaw_contest.exceptions.BadRequestException;
 
 public class SponsorCreationDto {
+
+    private String id;
 
     private String name;
 
@@ -20,6 +23,16 @@ public class SponsorCreationDto {
         this.sponsorType = sponsorType;
     }
 
+    public SponsorCreationDto(Sponsor sponsor) {
+        this.id = sponsor.getId();
+        this.name = sponsor.getName();
+        this.sponsorType = sponsor.getSponsorType();
+    }
+
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -32,10 +45,20 @@ public class SponsorCreationDto {
         return sponsorType;
     }
 
+    public void setSponsorType(String sponsorType) {
+        this.sponsorType = sponsorType;
+    }
+
     public void validate() {
         if (this.name == null || this.name.isEmpty() || this.donatedAmount < 0
                 || this.sponsorType == null || this.sponsorType.isEmpty()) {
             throw new BadRequestException("Incomplete SponsorCreationDto");
+        }
+    }
+
+    public void validateType() {
+        if (this.sponsorType == null || this.sponsorType.isEmpty()) {
+            throw new BadRequestException("Incomplete, lost sponsorType");
         }
     }
 

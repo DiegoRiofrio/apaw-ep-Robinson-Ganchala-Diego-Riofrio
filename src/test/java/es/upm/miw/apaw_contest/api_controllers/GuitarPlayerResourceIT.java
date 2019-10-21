@@ -17,7 +17,6 @@ public class GuitarPlayerResourceIT {
     @Autowired
     private WebTestClient webTestClient;
 
-
     @Test
     void testGetGuitarPlayer() {
         GuitarPlayerBasicDto fakeGuitarPlayerBasicDto = createGuitarPlayer("Robin");

@@ -29,15 +29,11 @@ public class Sponsor {
         return name;
     }
 
-    public double getDonatedAmount() {
-        return donatedAmount;
-    }
-
-    public void setDonatedAmount(double donatedAmount) {
-        this.donatedAmount = donatedAmount;
-    }
-
     public String getSponsorType() {
         return sponsorType;
+    }
+
+    public void setSponsorType(String sponsorType) {
+        this.sponsorType = sponsorType;
     }
 }
