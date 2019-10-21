@@ -24,6 +24,10 @@ public class SponsorBusinessController {
         return new SponsorBasicDto(sponsor);
     }
 
+    public SponsorCreationDto getSponsorById(String id){
+        return new SponsorCreationDto(this.sponsorDao.findById(id).orElseThrow(() -> new NotFoundException("Sponsor id not found: " + id))
+        );
+    }
     public SponsorCreationDto readType(String id) {
         return new SponsorCreationDto(this.findSponsorById(id));
     }
@@ -36,5 +40,10 @@ public class SponsorBusinessController {
         Sponsor sponsor = this.findSponsorById(id);
         sponsor.setSponsorType(sponsorType);
         this.sponsorDao.save(sponsor);
+    }
+
+    public void delete(String id) {
+        getSponsorById(id);
+        this.sponsorDao.deleteById(id);
     }
 }

@@ -18,6 +18,28 @@ class SponsorResourceIT {
     private WebTestClient webTestClient;
 
     @Test
+    void testGetSponsor(){
+        SponsorBasicDto sponsorBasicDto = createSponsor("bankia",3000.00,"high");
+        String sponsorId = sponsorBasicDto.getId();
+
+        SponsorCreationDto sponsor = this.webTestClient
+                .get().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID, sponsorId)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(SponsorCreationDto.class)
+                .returnResult().getResponseBody();
+        assertEquals(sponsorId,sponsor.getId());
+    }
+
+    @Test
+    void testGetSponsorBadRequestExeption(){
+        this.webTestClient
+                .get().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID,"")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
     void testCreate() {
         SponsorBasicDto sponsorBasicDto = createSponsor("iberia", 30.75, "small");
         assertEquals("iberia", sponsorBasicDto.getName());
@@ -73,6 +95,38 @@ class SponsorResourceIT {
     void testPutSponsorTypeNotFound() {
         this.webTestClient
                 .put().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID + SponsorResource.TYPE, "none")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testDeleteSponsor(){
+        SponsorBasicDto sponsorBasicDto = createSponsor("Wanda", 10050.57, "medium");
+        String sponsorId = sponsorBasicDto.getId();
+
+        this.webTestClient
+                .delete().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID, sponsorId)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK);
+
+        this.webTestClient
+                .get().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID, sponsorId)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testDeleteSponsorNotFound() {
+        this.webTestClient
+                .delete().uri(SponsorResource.SPONSORS + "/targetId" + "MongoID")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testDeleteSponsorBadRequest(){
+        this.webTestClient
+                .delete().uri(SponsorResource.SPONSORS + SponsorResource.ID_ID, "")
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }

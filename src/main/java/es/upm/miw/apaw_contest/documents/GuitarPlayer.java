@@ -47,6 +47,10 @@ public class GuitarPlayer {
         this.name = name;
     }
 
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     @Override
     public String toString() {
         return "GuitarPlayer{" +
@@ -57,4 +61,6 @@ public class GuitarPlayer {
                 ", phone=" + phone +
                 '}';
     }
+
+
 }

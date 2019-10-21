@@ -27,6 +27,11 @@ public class SponsorResource {
         return this.sponsorBusinessController.create(sponsorCreationDto);
     }
 
+    @GetMapping(value = ID_ID)
+    public SponsorCreationDto get(@PathVariable String id){
+        return this.sponsorBusinessController.getSponsorById(id);
+    }
+
     @GetMapping(value = ID_ID + TYPE)
     public SponsorCreationDto readType(@PathVariable String id) {
         return this.sponsorBusinessController.readType(id);
@@ -37,4 +42,7 @@ public class SponsorResource {
         sponsorCreationDto.validateType();
         this.sponsorBusinessController.updateType(id, sponsorCreationDto.getSponsorType());
     }
+
+    @DeleteMapping (value = ID_ID)
+    public void delete(@PathVariable String id) {this.sponsorBusinessController.delete(id);}
 }

@@ -33,6 +33,7 @@ public class Sponsor {
         return sponsorType;
     }
 
+
     public void setSponsorType(String sponsorType) {
         this.sponsorType = sponsorType;
     }
