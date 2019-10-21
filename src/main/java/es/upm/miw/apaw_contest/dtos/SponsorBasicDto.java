@@ -17,6 +17,10 @@ public class SponsorBasicDto {
         this.name = sponsor.getName();
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
