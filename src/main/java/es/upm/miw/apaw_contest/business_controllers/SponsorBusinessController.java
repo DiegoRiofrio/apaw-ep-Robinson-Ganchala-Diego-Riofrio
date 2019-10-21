@@ -41,4 +41,9 @@ public class SponsorBusinessController {
         sponsor.setSponsorType(sponsorType);
         this.sponsorDao.save(sponsor);
     }
+
+    public void delete(String id) {
+        getSponsorById(id);
+        this.sponsorDao.deleteById(id);
+    }
 }
