@@ -34,7 +34,7 @@ public class GuitarPlayerPatchDto {
     }
 
     public void validate() {
-        if (this.path == null || this.path.isEmpty()) {
+        if ((this.path.equals("name") || this.path.equals("phone")) && (this.newValue == null || this.newValue.isEmpty())) {
             throw new BadRequestException("Incomplete GuitarPlayerPatchDto");
         }
     }
