@@ -42,4 +42,7 @@ public class SponsorResource {
         sponsorCreationDto.validateType();
         this.sponsorBusinessController.updateType(id, sponsorCreationDto.getSponsorType());
     }
+
+    @DeleteMapping (value = ID_ID)
+    public void delete(@PathVariable String id) {this.sponsorBusinessController.delete(id);}
 }
