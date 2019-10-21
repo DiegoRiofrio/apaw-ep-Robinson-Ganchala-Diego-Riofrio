@@ -3,6 +3,7 @@ package es.upm.miw.apaw_contest.api_controllers;
 import es.upm.miw.apaw_contest.business_controllers.GuitarPlayerBusinessController;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerCreationDto;
+import es.upm.miw.apaw_contest.dtos.GuitarPlayerPatchDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,8 +39,14 @@ public class GuitarPlayerResource {
 
     @PutMapping(value = ID_ID + SURNAME)
     public void updateSurname(@PathVariable String id, @RequestBody GuitarPlayerCreationDto guitarPlayerCreationDto) {
-        guitarPlayerCreationDto.valdateSurname();
+        guitarPlayerCreationDto.validateSurname();
         this.guitarPlayerBusinessController.updateSurname(id, guitarPlayerCreationDto.getSurname());
+    }
+
+    @PatchMapping(value = ID_ID)
+    public void patch(@PathVariable String id, @RequestBody GuitarPlayerPatchDto guitarPlayerPatchDto) {
+        guitarPlayerPatchDto.validate();
+        this.guitarPlayerBusinessController.patch(id, guitarPlayerPatchDto);
     }
 
 }

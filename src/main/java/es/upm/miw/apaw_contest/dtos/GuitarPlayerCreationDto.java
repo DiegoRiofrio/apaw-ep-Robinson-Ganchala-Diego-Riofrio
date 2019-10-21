@@ -71,7 +71,7 @@ public class GuitarPlayerCreationDto {
         }
     }
 
-    public void valdateSurname(){
+    public void validateSurname(){
         if (this.surname == null || this.surname.isEmpty()){
             throw new BadRequestException("Incomplete, lost Surname");
         }
