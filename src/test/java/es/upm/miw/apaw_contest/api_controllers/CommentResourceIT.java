@@ -30,8 +30,8 @@ public class CommentResourceIT {
                 .expectBodyList(CommentDto.class)
                 .returnResult().getResponseBody();
         assertTrue(list.size() > 0);
-        assertEquals(list.get(0).getDescription(), "Bien hecho!");
-        assertEquals(list.get(1).getDescription(), "Mal hecho!");
+        assertEquals("Bien hecho!", list.get(0).getDescription());
+        assertEquals("Mal hecho!", list.get(1).getDescription());
     }
 
     @Test
@@ -70,6 +70,17 @@ public class CommentResourceIT {
                 .delete().uri(CommentResource.COMMENTS + CommentResource.ID_ID, "")
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testCreateCommentBadRequest() {
+        CommentDto commentDto = new CommentDto(false, "");
+        this.webTestClient
+                .post().uri(CommentResource.COMMENTS)
+                .body(BodyInserters.fromObject(commentDto))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+
     }
 
     CommentDto createComment(Boolean positive, String description) {

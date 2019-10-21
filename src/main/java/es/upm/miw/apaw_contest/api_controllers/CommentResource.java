@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping(CommentResource.COMMENTS)
 public class CommentResource {
 
-    public static final String COMMENTS = "/comments";
+    static final String COMMENTS = "/comments";
     static final String ID_ID = "/{id}";
 
     private CommentBusinessController commentBusinessController;
