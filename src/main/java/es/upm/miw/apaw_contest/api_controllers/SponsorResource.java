@@ -53,7 +53,7 @@ public class SponsorResource {
 
     @PatchMapping()
     public void patch (@RequestBody List<SponsorBasicDto> sponsorBasicDtoList){
-        if(sponsorBasicDtoList.stream().anyMatch(value->Strings.isNullOrEmpty(value.getId()) || Strings.isNullOrEmpty(value.getName())) || sponsorBasicDtoList.size() == 0){
+        if(sponsorBasicDtoList.stream().anyMatch(value->Strings.isNullOrEmpty(value.getId()) || Strings.isNullOrEmpty(value.getName())) || sponsorBasicDtoList.isEmpty()){
             throw new BadRequestException("Parameters not found");
         }
         this.sponsorBusinessController.patch(sponsorBasicDtoList);
