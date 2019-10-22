@@ -28,7 +28,9 @@ public class Sponsor {
     public String getName() {
         return name;
     }
-
+    public void setName(String name) {
+        this.name = name;
+    }
     public double getDonatedAmount() {
         return donatedAmount;
     }
@@ -40,4 +42,6 @@ public class Sponsor {
     public void setSponsorType(String sponsorType) {
         this.sponsorType = sponsorType;
     }
+
+
 }
