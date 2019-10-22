@@ -32,8 +32,7 @@ public class GuitarContestResource {
     @PostMapping(value = ID_ID + GUITAR_PLAYERS)
     public GuitarPlayerCreationDto createContestWithGuitarPlayers(@PathVariable String id, @RequestBody GuitarPlayerCreationDto guitarPlayerCreationDto) {
         guitarPlayerCreationDto.validate();
-        GuitarPlayerCreationDto guitarPlayerCreationDto1 = this.guitarContestBusinessController.createWithId(id, guitarPlayerCreationDto);
-        return guitarPlayerCreationDto1;
+        return this.guitarContestBusinessController.createWithId(id, guitarPlayerCreationDto);
     }
 
     @GetMapping(value = ID_ID + GUITAR_PLAYERS)
