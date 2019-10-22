@@ -57,7 +57,8 @@ public class GuitarContestCreationDto {
     @Override
     public String toString() {
         return "GuitarContestCreationDto{" +
-                "date=" + date +
+                "id='" + id + '\'' +
+                ", date=" + date +
                 ", address='" + address + '\'' +
                 ", country='" + country + '\'' +
                 '}';
