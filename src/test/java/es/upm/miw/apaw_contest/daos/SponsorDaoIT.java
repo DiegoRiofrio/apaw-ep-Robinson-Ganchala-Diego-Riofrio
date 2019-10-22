@@ -20,5 +20,6 @@ class SponsorDaoIT {
         this.sponsorDao.save(sponsor);
         Sponsor databaseSponsor = this.sponsorDao.findById(sponsor.getId()).orElseGet(Assertions::fail);
         assertEquals("iberia", databaseSponsor.getName());
+        assertEquals(25000.50, databaseSponsor.getDonatedAmount());
     }
 }

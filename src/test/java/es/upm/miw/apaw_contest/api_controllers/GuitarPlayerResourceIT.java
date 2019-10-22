@@ -3,6 +3,7 @@ package es.upm.miw.apaw_contest.api_controllers;
 import es.upm.miw.apaw_contest.ApiTestConfig;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerCreationDto;
+import es.upm.miw.apaw_contest.dtos.GuitarPlayerPatchDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -107,5 +108,34 @@ public class GuitarPlayerResourceIT {
                 .put().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID + GuitarPlayerResource.SURNAME, "none")
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testGuitarPlayerPatch() {
+        String id = createGuitarPlayer("Francisco").getId();
+        this.webTestClient
+                .patch().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID, id)
+                .body(BodyInserters.fromObject(new GuitarPlayerPatchDto("surname", "García")))
+                .exchange()
+                .expectStatus().isOk();
+    }
+
+    @Test
+    void testGuitarPlayerPatchBadRequestException() {
+        String id = createGuitarPlayer("Fake").getId();
+        this.webTestClient
+                .patch().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID, id)
+                .body(BodyInserters.fromObject(new GuitarPlayerPatchDto("name",null)))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testGuitarPlayerPatchNotFoundException() {
+        this.webTestClient
+                .patch().uri(GuitarPlayerResource.GUITARPLAYERS + GuitarPlayerResource.ID_ID, "no")
+                .body(BodyInserters.fromObject(new GuitarPlayerPatchDto("name", "newName")))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
     }
 }

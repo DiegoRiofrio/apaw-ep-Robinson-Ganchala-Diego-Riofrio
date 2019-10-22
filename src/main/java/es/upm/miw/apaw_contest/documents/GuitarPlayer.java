@@ -51,6 +51,14 @@ public class GuitarPlayer {
         this.surname = surname;
     }
 
+    public void setHasOwnGuitar(Boolean hasOwnGuitar) {
+        this.hasOwnGuitar = hasOwnGuitar;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "GuitarPlayer{" +
