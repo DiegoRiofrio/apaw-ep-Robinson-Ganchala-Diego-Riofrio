@@ -8,6 +8,9 @@ import es.upm.miw.apaw_contest.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class SponsorBusinessController {
 
@@ -45,5 +48,18 @@ public class SponsorBusinessController {
     public void delete(String id) {
         getSponsorById(id);
         this.sponsorDao.deleteById(id);
+    }
+
+    private Sponsor findSponsorAndEdit(String id, String name){
+        Sponsor sponsor = findSponsorById(id);
+        sponsor.setName(name);
+        return sponsor;
+    }
+
+    public void patch(List<SponsorBasicDto> sponsors){
+        List<Sponsor> sponsorList = sponsors.stream()
+                .map(value ->
+                        findSponsorAndEdit(value.getId(),value.getName())).collect(Collectors.toList());
+        this.sponsorDao.saveAll(sponsorList);
     }
 }
