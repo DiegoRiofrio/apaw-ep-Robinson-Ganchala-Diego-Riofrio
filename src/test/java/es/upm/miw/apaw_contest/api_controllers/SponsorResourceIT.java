@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ApiTestConfig
@@ -131,5 +134,45 @@ class SponsorResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    void testPatch(){
+        String idIneco = this.createSponsor("Ineco",100,"high").getId();
+        String idFujitsu = this.createSponsor("Fujitsu",50,"medium").getId();
+        String idDms = this.createSponsor("Dms",10, "small").getId();
+        SponsorBasicDto newIneco = new SponsorBasicDto();
+        newIneco.setId(idIneco);
+        newIneco.setName("Renfe");
+        SponsorBasicDto newFujitsu = new SponsorBasicDto();
+        newFujitsu.setId(idFujitsu);
+        newFujitsu.setName("Manpower");
+        SponsorBasicDto newDms = new SponsorBasicDto();
+        newDms.setId(idDms);
+        newDms.setName("Experis");
+        List<SponsorBasicDto> sponsorBasicDtosList = new ArrayList<>();
+        sponsorBasicDtosList.add(newIneco);
+        sponsorBasicDtosList.add(newFujitsu);
+        sponsorBasicDtosList.add(newDms);
+        this.webTestClient
+                .patch().uri(SponsorResource.SPONSORS)
+                .body(BodyInserters.fromObject(sponsorBasicDtosList))
+                .exchange()
+                .expectStatus().isOk();
+    }
 
+    @Test
+    void testPatchNotFoundException(){
+        this.webTestClient
+                .patch().uri(SponsorResource.SPONSORS)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+    @Test
+    void testPatchListExeption(){
+        List<SponsorBasicDto> sponsorBasicDtos = new ArrayList<>();
+        this.webTestClient
+                .patch().uri(SponsorResource.SPONSORS)
+                .body(BodyInserters.fromObject(sponsorBasicDtos))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
 }

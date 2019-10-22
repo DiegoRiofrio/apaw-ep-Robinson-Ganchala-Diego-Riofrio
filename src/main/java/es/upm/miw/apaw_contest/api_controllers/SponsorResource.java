@@ -3,8 +3,13 @@ package es.upm.miw.apaw_contest.api_controllers;
 import es.upm.miw.apaw_contest.business_controllers.SponsorBusinessController;
 import es.upm.miw.apaw_contest.dtos.SponsorBasicDto;
 import es.upm.miw.apaw_contest.dtos.SponsorCreationDto;
+import com.google.common.base.Strings;
+import es.upm.miw.apaw_contest.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping(SponsorResource.SPONSORS)
@@ -45,4 +50,12 @@ public class SponsorResource {
 
     @DeleteMapping (value = ID_ID)
     public void delete(@PathVariable String id) {this.sponsorBusinessController.delete(id);}
+
+    @PatchMapping()
+    public void patch (@RequestBody List<SponsorBasicDto> sponsorBasicDtoList){
+        if(sponsorBasicDtoList.stream().anyMatch(value->Strings.isNullOrEmpty(value.getId()) || Strings.isNullOrEmpty(value.getName())) || sponsorBasicDtoList.size() == 0){
+            throw new BadRequestException("Parameters not found");
+        }
+        this.sponsorBusinessController.patch(sponsorBasicDtoList);
+    }
 }
