@@ -3,6 +3,7 @@ package es.upm.miw.apaw_contest.daos;
 
 import es.upm.miw.apaw_contest.TestConfig;
 import es.upm.miw.apaw_contest.documents.GuitarContest;
+import es.upm.miw.apaw_contest.documents.Jury;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class GuitarContestDaoIT {
 
     @Test
     void testCreate() {
-        GuitarContest guitarContest = new GuitarContest(LocalDateTime.of(2020, 2, 28, 20, 30), "puerta del sol, Madrid", "España");
+        Jury jury = new Jury(5, "Winner", "Local");
+        GuitarContest guitarContest = new GuitarContest(LocalDateTime.of(2020, 2, 28, 20, 30), "puerta del sol, Madrid", "España", jury);
         this.guitarContestDao.save(guitarContest);
         GuitarContest databaseGuitarContest = this.guitarContestDao.findById(guitarContest.getId()).orElseGet(Assertions::fail);
         assertEquals("España", databaseGuitarContest.getCountry());
