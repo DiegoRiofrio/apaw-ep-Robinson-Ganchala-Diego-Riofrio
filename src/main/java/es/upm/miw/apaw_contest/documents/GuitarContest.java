@@ -17,10 +17,13 @@ public class GuitarContest {
 
     private String country;
 
-    public GuitarContest(LocalDateTime date, String address, String country) {
+    private Jury jury;
+
+    public GuitarContest(LocalDateTime date, String address, String country, Jury jury) {
         this.date = date;
         this.address = address;
         this.country = country;
+        this.jury = jury;
     }
 
     public String getId() {
@@ -31,16 +34,21 @@ public class GuitarContest {
         this.id = id;
     }
 
-
     public String getAddress() {
         return address;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
 
     public String getCountry() {
         return country;
     }
 
+    public Jury getJury() {
+        return jury;
+    }
 
     @Override
     public String toString() {
