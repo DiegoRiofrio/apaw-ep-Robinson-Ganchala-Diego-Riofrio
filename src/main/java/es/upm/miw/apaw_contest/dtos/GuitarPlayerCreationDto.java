@@ -71,8 +71,8 @@ public class GuitarPlayerCreationDto {
         }
     }
 
-    public void validateSurname(){
-        if (this.surname == null || this.surname.isEmpty()){
+    public void validateSurname() {
+        if (this.surname == null || this.surname.isEmpty()) {
             throw new BadRequestException("Incomplete, lost Surname");
         }
     }
@@ -80,7 +80,8 @@ public class GuitarPlayerCreationDto {
     @Override
     public String toString() {
         return "GuitarPlayerCreationDto{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", hasOwnGuitar=" + hasOwnGuitar +
                 ", phone=" + phone +

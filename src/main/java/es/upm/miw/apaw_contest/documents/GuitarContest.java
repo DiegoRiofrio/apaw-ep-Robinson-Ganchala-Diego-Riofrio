@@ -4,6 +4,8 @@ import nonapi.io.github.classgraph.json.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document
 
@@ -17,10 +19,13 @@ public class GuitarContest {
 
     private String country;
 
+    private List<GuitarPlayer> guitarPlayerList;
+
     public GuitarContest(LocalDateTime date, String address, String country) {
         this.date = date;
         this.address = address;
         this.country = country;
+        this.guitarPlayerList = new ArrayList<>();
     }
 
     public String getId() {
@@ -41,6 +46,9 @@ public class GuitarContest {
         return country;
     }
 
+    public List<GuitarPlayer> getGuitarPlayerList() {
+        return guitarPlayerList;
+    }
 
     @Override
     public String toString() {
