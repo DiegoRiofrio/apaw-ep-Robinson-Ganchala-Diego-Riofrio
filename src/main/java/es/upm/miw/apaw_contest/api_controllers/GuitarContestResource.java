@@ -6,11 +6,15 @@ import es.upm.miw.apaw_contest.dtos.GuitarContestCreationDto;
 import es.upm.miw.apaw_contest.dtos.JuryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import es.upm.miw.apaw_contest.dtos.GuitarPlayerCreationDto;
+
+import java.util.List;
 
 @RestController
-@RequestMapping(GuitarContestResource.GUITARCONTEST)
+@RequestMapping(GuitarContestResource.GUITAR_CONTESTS)
 public class GuitarContestResource {
-    public static final String GUITARCONTEST = "/guitar-contest";
+    static final String GUITAR_PLAYERS = "/guitar-players";
+    static final String GUITAR_CONTESTS = "/guitar-contests";
     static final String ID_ID = "/{id}";
     static final String JURY = "/jury";
     static final String VEREDICT = "/veredict";
@@ -31,5 +35,16 @@ public class GuitarContestResource {
     @GetMapping(value = ID_ID + JURY + VEREDICT)
     public JuryDto readVeredict(@PathVariable String id) {
         return this.guitarContestBusinessController.processVeredict(id);
+    }
+
+    @PostMapping(value = ID_ID + GUITAR_PLAYERS)
+    public GuitarPlayerCreationDto createContestWithGuitarPlayers(@PathVariable String id, @RequestBody GuitarPlayerCreationDto guitarPlayerCreationDto) {
+        guitarPlayerCreationDto.validate();
+        return this.guitarContestBusinessController.createWithId(id, guitarPlayerCreationDto);
+    }
+
+    @GetMapping(value = ID_ID + GUITAR_PLAYERS)
+    public List<GuitarPlayerCreationDto> readAllGuitarPlayers(@PathVariable String id) {
+        return this.guitarContestBusinessController.findGuitarPlayers(id);
     }
 }

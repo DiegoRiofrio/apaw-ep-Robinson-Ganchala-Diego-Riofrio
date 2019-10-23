@@ -2,6 +2,8 @@ package es.upm.miw.apaw_contest.dtos;
 
 import es.upm.miw.apaw_contest.documents.GuitarContest;
 
+import java.util.List;
+
 public class GuitarContestBasicDto {
 
     private String id;
@@ -10,14 +12,10 @@ public class GuitarContestBasicDto {
 
     private String country;
 
+    private List<String> guitarPlayerIds;
+
     public GuitarContestBasicDto() {
         //For framework
-    }
-
-    public GuitarContestBasicDto(String id, String address, String country) {
-        this.id = id;
-        this.address = address;
-        this.country = country;
     }
 
     public GuitarContestBasicDto(GuitarContest guitarContest) {
@@ -36,6 +34,10 @@ public class GuitarContestBasicDto {
 
     public String getAddress() {
         return address;
+    }
+
+    public List<String> getGuitarPlayerIds() {
+        return guitarPlayerIds;
     }
 
     @Override
