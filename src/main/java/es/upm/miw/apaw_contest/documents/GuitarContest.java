@@ -19,14 +19,18 @@ public class GuitarContest {
 
     private String country;
 
+    private Jury jury;
+
     private List<GuitarPlayer> guitarPlayerList;
 
-    public GuitarContest(LocalDateTime date, String address, String country) {
+    public GuitarContest(LocalDateTime date, String address, String country, Jury jury) {
         this.date = date;
         this.address = address;
         this.country = country;
+        this.jury = jury;
         this.guitarPlayerList = new ArrayList<>();
     }
+
 
     public String getId() {
         return id;
@@ -36,14 +40,20 @@ public class GuitarContest {
         this.id = id;
     }
 
-
     public String getAddress() {
         return address;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
 
     public String getCountry() {
         return country;
+    }
+
+    public Jury getJury() {
+        return jury;
     }
 
     public List<GuitarPlayer> getGuitarPlayerList() {
