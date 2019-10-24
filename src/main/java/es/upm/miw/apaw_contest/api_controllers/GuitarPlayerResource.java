@@ -1,11 +1,14 @@
 package es.upm.miw.apaw_contest.api_controllers;
 
 import es.upm.miw.apaw_contest.business_controllers.GuitarPlayerBusinessController;
+import es.upm.miw.apaw_contest.dtos.GuitarContestBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerCreationDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerPatchDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.EmitterProcessor;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping(GuitarPlayerResource.GUITARPLAYERS)
@@ -15,16 +18,23 @@ public class GuitarPlayerResource {
     static final String SURNAME = "/surname";
 
     private GuitarPlayerBusinessController guitarPlayerBusinessController;
+    private EmitterProcessor<String> emitterProcessor;
 
     @Autowired
     public GuitarPlayerResource(GuitarPlayerBusinessController guitarPlayerBusinessController) {
         this.guitarPlayerBusinessController = guitarPlayerBusinessController;
+        this.emitterProcessor = EmitterProcessor.create();
     }
-
+    public Flux<String> publisher(){
+        return this.emitterProcessor;
+    }
     @PostMapping
     public GuitarPlayerBasicDto create(@RequestBody GuitarPlayerCreationDto guitarPlayerCreationDto) {
         guitarPlayerCreationDto.validate();
-        return this.guitarPlayerBusinessController.create(guitarPlayerCreationDto);
+        GuitarPlayerBasicDto guitarPlayerBasicDtoSaved = this.guitarPlayerBusinessController.create(guitarPlayerCreationDto);
+        this.guitarPlayerBusinessController.create(guitarPlayerCreationDto);
+        this.emitterProcessor.onNext(guitarPlayerBasicDtoSaved.getName());
+        return guitarPlayerBasicDtoSaved;
     }
 
     @GetMapping(value = ID_ID)

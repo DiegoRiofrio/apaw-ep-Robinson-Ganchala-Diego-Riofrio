@@ -9,21 +9,33 @@ import es.upm.miw.apaw_contest.exceptions.BadRequestException;
 import es.upm.miw.apaw_contest.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.EmitterProcessor;
+import reactor.core.publisher.Flux;
 
 @Controller
 public class GuitarPlayerBusinessController {
 
     private GuitarPlayerDao guitarPlayerDao;
 
+    private EmitterProcessor<String> emitterProcessor;
+
     @Autowired
     public GuitarPlayerBusinessController(GuitarPlayerDao guitarPlayerDao) {
+
         this.guitarPlayerDao = guitarPlayerDao;
+        this.emitterProcessor = EmitterProcessor.create();
+    }
+
+    public Flux<String> publisher(){
+        return this.emitterProcessor;
     }
 
     public GuitarPlayerBasicDto create(GuitarPlayerCreationDto guitarPlayerCreationDto) {
         GuitarPlayer guitarPlayer = new GuitarPlayer(guitarPlayerCreationDto.getName(), guitarPlayerCreationDto.getSurname(), guitarPlayerCreationDto.getHasOwnGuitar(), guitarPlayerCreationDto.getPhone());
         this.guitarPlayerDao.save(guitarPlayer);
-        return new GuitarPlayerBasicDto(guitarPlayer);
+        GuitarPlayerBasicDto guitarPlayerBasicDtoSaved = new GuitarPlayerBasicDto(guitarPlayer);
+        this.emitterProcessor.onNext(guitarPlayerBasicDtoSaved.getName());
+        return guitarPlayerBasicDtoSaved;
     }
 
     public GuitarPlayerCreationDto getGuitarPlayerById(String id) {
