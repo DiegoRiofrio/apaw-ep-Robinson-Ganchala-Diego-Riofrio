@@ -8,20 +8,45 @@ public class Jury {
 
     private String type;
 
+    public Jury() {
+        //For framework
+    }
+
+    public Jury(Integer members, String type) {
+        this.members = members;
+        this.type = type;
+    }
+
     public Jury(Integer members, String veredict, String type) {
         this.members = members;
         this.veredict = veredict;
         this.type = type;
     }
 
-    public Jury() {
-        //For framework
-    }
-
     public String getVeredict() {
         return veredict;
     }
 
+
+    public Integer getMembers() {
+        return members;
+    }
+
+    public void setMembers(Integer members) {
+        this.members = members;
+    }
+
+    public void setVeredict(String veredict) {
+        this.veredict = veredict;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     @Override
     public String toString() {
