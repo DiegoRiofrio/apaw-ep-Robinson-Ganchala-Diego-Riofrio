@@ -10,7 +10,7 @@ class JuryBuilderIT {
     void testFull() {
         Jury jury = new JuryBuilder(1, "Local").members(5).veredict("winner").type("Local").build();
         assertEquals("Local", jury.getType());
-        assertEquals(new Integer(5), jury.getMembers());
+        assertEquals(5, jury.getMembers());
         assertEquals("winner", jury.getVeredict());
 
 
