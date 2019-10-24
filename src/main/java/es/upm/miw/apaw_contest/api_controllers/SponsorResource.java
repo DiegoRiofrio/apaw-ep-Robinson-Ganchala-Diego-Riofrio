@@ -7,9 +7,9 @@ import com.google.common.base.Strings;
 import es.upm.miw.apaw_contest.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.*;
 
 import java.util.List;
-
 
 @RestController
 @RequestMapping(SponsorResource.SPONSORS)
@@ -21,19 +21,28 @@ public class SponsorResource {
 
     private SponsorBusinessController sponsorBusinessController;
 
+    private EmitterProcessor<String> emitterProcessor;
+
     @Autowired
     public SponsorResource(SponsorBusinessController sponsorBusinessController) {
         this.sponsorBusinessController = sponsorBusinessController;
+        this.emitterProcessor = EmitterProcessor.create();
+    }
+
+    public Flux<String> publisher() {
+        return this.emitterProcessor;
     }
 
     @PostMapping
     public SponsorBasicDto create(@RequestBody SponsorCreationDto sponsorCreationDto) {
         sponsorCreationDto.validate();
-        return this.sponsorBusinessController.create(sponsorCreationDto);
+        SponsorBasicDto sponsorBasicDtoSaved = this.sponsorBusinessController.create(sponsorCreationDto);
+        this.emitterProcessor.onNext(sponsorBasicDtoSaved.getName());
+        return sponsorBasicDtoSaved;
     }
 
     @GetMapping(value = ID_ID)
-    public SponsorCreationDto get(@PathVariable String id){
+    public SponsorCreationDto get(@PathVariable String id) {
         return this.sponsorBusinessController.getSponsorById(id);
     }
 
@@ -48,12 +57,14 @@ public class SponsorResource {
         this.sponsorBusinessController.updateType(id, sponsorCreationDto.getSponsorType());
     }
 
-    @DeleteMapping (value = ID_ID)
-    public void delete(@PathVariable String id) {this.sponsorBusinessController.delete(id);}
+    @DeleteMapping(value = ID_ID)
+    public void delete(@PathVariable String id) {
+        this.sponsorBusinessController.delete(id);
+    }
 
     @PatchMapping()
-    public void patch (@RequestBody List<SponsorBasicDto> sponsorBasicDtoList){
-        if(sponsorBasicDtoList.stream().anyMatch(value->Strings.isNullOrEmpty(value.getId()) || Strings.isNullOrEmpty(value.getName())) || sponsorBasicDtoList.isEmpty()){
+    public void patch(@RequestBody List<SponsorBasicDto> sponsorBasicDtoList) {
+        if (sponsorBasicDtoList.stream().anyMatch(value -> Strings.isNullOrEmpty(value.getId()) || Strings.isNullOrEmpty(value.getName())) || sponsorBasicDtoList.isEmpty()) {
             throw new BadRequestException("Parameters not found");
         }
         this.sponsorBusinessController.patch(sponsorBasicDtoList);
