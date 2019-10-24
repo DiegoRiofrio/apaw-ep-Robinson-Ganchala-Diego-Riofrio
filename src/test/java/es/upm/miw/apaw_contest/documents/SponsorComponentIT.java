@@ -64,9 +64,4 @@ class SponsorComponentIT {
         assertThrows(UnsupportedOperationException.class, () -> this.leaf.add(new SponsorLeaf(new Sponsor("DELL", 8989.7, "medium"))));
     }
 
-    @Test
-    void testRemoveLeaf() {
-        this.root.remove(this.leaf);
-    }
-
 }
