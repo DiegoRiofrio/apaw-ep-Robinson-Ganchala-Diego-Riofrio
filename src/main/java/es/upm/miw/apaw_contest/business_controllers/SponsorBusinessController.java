@@ -7,6 +7,7 @@ import es.upm.miw.apaw_contest.dtos.SponsorCreationDto;
 import es.upm.miw.apaw_contest.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,21 +17,31 @@ public class SponsorBusinessController {
 
     private SponsorDao sponsorDao;
 
+    private EmitterProcessor<String> emitterProcessor;
+
     @Autowired
     public SponsorBusinessController(SponsorDao sponsorDao) {
         this.sponsorDao = sponsorDao;
+        this.emitterProcessor = EmitterProcessor.create();
+    }
+
+    public Flux<String> publisher() {
+        return this.emitterProcessor;
     }
 
     public SponsorBasicDto create(SponsorCreationDto sponsorCreationDto) {
         Sponsor sponsor = new Sponsor(sponsorCreationDto.getName(), sponsorCreationDto.getDonatedAmount(), sponsorCreationDto.getSponsorType());
         this.sponsorDao.save(sponsor);
-        return new SponsorBasicDto(sponsor);
+        SponsorBasicDto sponsorBasicDtoSaved = new SponsorBasicDto(sponsor);
+        this.emitterProcessor.onNext(sponsorBasicDtoSaved.getName());
+        return sponsorBasicDtoSaved;
     }
 
-    public SponsorCreationDto getSponsorById(String id){
+    public SponsorCreationDto getSponsorById(String id) {
         return new SponsorCreationDto(this.sponsorDao.findById(id).orElseThrow(() -> new NotFoundException("Sponsor id not found: " + id))
         );
     }
+
     public SponsorCreationDto readType(String id) {
         return new SponsorCreationDto(this.findSponsorById(id));
     }
@@ -50,16 +61,16 @@ public class SponsorBusinessController {
         this.sponsorDao.deleteById(id);
     }
 
-    private Sponsor findSponsorAndEdit(String id, String name){
+    private Sponsor findSponsorAndEdit(String id, String name) {
         Sponsor sponsor = findSponsorById(id);
         sponsor.setName(name);
         return sponsor;
     }
 
-    public void patch(List<SponsorBasicDto> sponsors){
+    public void patch(List<SponsorBasicDto> sponsors) {
         List<Sponsor> sponsorList = sponsors.stream()
                 .map(value ->
-                        findSponsorAndEdit(value.getId(),value.getName())).collect(Collectors.toList());
+                        findSponsorAndEdit(value.getId(), value.getName())).collect(Collectors.toList());
         this.sponsorDao.saveAll(sponsorList);
     }
 }
