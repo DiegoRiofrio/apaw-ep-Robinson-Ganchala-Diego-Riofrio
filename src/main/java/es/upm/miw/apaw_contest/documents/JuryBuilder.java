@@ -6,7 +6,7 @@ public class JuryBuilder {
 
     private Jury jury;
 
-    public JuryBuilder(Integer members, String type) {
+    public JuryBuilder(int members, String type) {
         this.jury = new Jury(members, type);
     }
 
@@ -14,7 +14,7 @@ public class JuryBuilder {
         this(reference, "type" + reference);
     }
 
-    public JuryBuilder members(Integer members) {
+    public JuryBuilder members(int members) {
         this.jury.setMembers(members);
         return this;
     }
