@@ -1,7 +1,6 @@
 package es.upm.miw.apaw_contest.api_controllers;
 
 import es.upm.miw.apaw_contest.business_controllers.GuitarPlayerBusinessController;
-import es.upm.miw.apaw_contest.dtos.GuitarContestBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerBasicDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerCreationDto;
 import es.upm.miw.apaw_contest.dtos.GuitarPlayerPatchDto;
