@@ -2,7 +2,7 @@ package es.upm.miw.apaw_contest.documents;
 
 public class Jury {
 
-    private Integer members;
+    private int members;
 
     private String veredict;
 
@@ -12,12 +12,12 @@ public class Jury {
         //For framework
     }
 
-    public Jury(Integer members, String type) {
+    public Jury(int members, String type) {
         this.members = members;
         this.type = type;
     }
 
-    public Jury(Integer members, String veredict, String type) {
+    public Jury(int members, String veredict, String type) {
         this.members = members;
         this.veredict = veredict;
         this.type = type;
@@ -28,11 +28,11 @@ public class Jury {
     }
 
 
-    public Integer getMembers() {
+    public int getMembers() {
         return members;
     }
 
-    public void setMembers(Integer members) {
+    public void setMembers(int members) {
         this.members = members;
     }
 
